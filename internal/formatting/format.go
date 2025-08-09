@@ -3,11 +3,12 @@ package formatting
 import "fmt"
 
 func Colorize(s, color string) string {
-	if seq, ok := colorSetShort[color]; ok {
-		return fmt.Sprintf("%s%s%s", seq, s, clear)
+	return fmt.Sprintf("%s%s%s", getSeq(color), s, clear)
+}
+
+func getSeq(color string) string {
+	if short, ok := shortByLongColorName[color]; ok {
+		return colorSet[short]
 	}
-	if seq, ok := colorSetWide[color]; ok {
-		return fmt.Sprintf("%s%s%s", seq, s, clear)
-	}
-	return s
+	return colorSet[color]
 }

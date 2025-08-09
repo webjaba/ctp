@@ -7,16 +7,16 @@ import (
 
 func GetColorSet() string {
 	widestLen := getWidestLen()
-	s := make([]string, 0, len(colorSetWide)+1)
+	s := make([]string, 0, len(shortByLongColorName)+1)
 
 	gap := strings.Repeat(" ", widestLen-4+2)
 	s = append(s, fmt.Sprintf("wide%sshort", gap))
 
-	for longName, seq := range colorSetWide {
+	for longName := range shortByLongColorName {
 		gap = strings.Repeat(" ", widestLen-len(longName)+2)
 		s = append(s, fmt.Sprintf(
 			"%s%s%s%s%s",
-			seq,
+			getSeq(longName),
 			longName,
 			gap,
 			shortByLongColorName[longName],
@@ -28,7 +28,7 @@ func GetColorSet() string {
 
 func getWidestLen() int {
 	l := 0
-	for longName, _ := range colorSetWide {
+	for longName := range shortByLongColorName {
 		if len(longName) > l {
 			l = len(longName)
 		}
